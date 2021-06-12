@@ -1,7 +1,7 @@
 #  Slide decks of my speaking engagements
 This repository contains source codes and samples as provided in the book Getting started with Bicep - Infrastructure as code on Azure. This book is your guide to mastering Bicep! It contains a lot of practical solutions and examples to help you jump start your journey towards infrastructure as code for Azure!
 
-<img align="right" src="https://github.com/fberson/Getting-started-with-Bicep-Infrastructure-as-code-on-Azure/blob/main/cover.jpg">
+<img align="right" src="https://github.com/fberson/Getting-started-with-Bicep-Infrastructure-as-code-on-Azure/blob/main/cover.jpg" height=100>
 
 ## Book Description
 Infrastructure as Code is crucial to becoming successful in the Azure Cloud. Azure Resource Manager allows you to create resources in Azure in a declarative way. For many years we have been using ARM Templates to declare resources in a JSON format. Although ARM Templates are very powerful, the implementation of the JSON language is hard to read, maintain and debug. Bicep, a Domain Specific Language, overcomes these issues by providing a transparent abstraction layer on top of ARM and ARM Templates. This significantly improves the authoring experience. Bicep is easy to understand at a glance and straightforward to learn regardless of your experience with other programming languages.
