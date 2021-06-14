@@ -1,13 +1,7 @@
 param storageAccountName string
 param containerName string
-@secure()
-param secretMetadata string
+param containerIndex int
 
 resource blob 'Microsoft.Storage/storageAccounts/blobServices/containers@2019-06-01' = {
-  name: '${storageAccountName}/default/${containerName}'
-  properties:{
-    metadata: {
-      secret: secretMetadata
-    }
-  }
+  name: '${storageAccountName}/default/${containerIndex}${containerName}'
 }

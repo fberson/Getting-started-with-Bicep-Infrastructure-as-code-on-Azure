@@ -4,35 +4,37 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.3.631.10959",
-      "templateHash": "2526872702354862297"
+      "version": "0.4.63.48766",
+      "templateHash": "7471137598004575033"
     }
   },
   "parameters": {
+    "namePrefix": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
     "resourceGroupName": {
       "type": "string",
       "defaultValue": "my-rg"
     },
-    "storageAccountName": {
-      "type": "string"
-    },
-    "containerName": {
-      "type": "string"
-    },
-    "keyVaultName": {
-      "type": "string"
-    },
-    "keyVaultSubscription": {
-      "type": "string"
-    },
-    "keyVaultResourceGroup": {
-      "type": "string"
-    },
-    "secretName": {
-      "type": "string"
-    },
-    "secretVersion": {
-      "type": "string"
+    "blobContainers": {
+      "type": "array",
+      "defaultValue": [
+        {
+          "Name": "bicep",
+          "publicAccess": "blob"
+        },
+        {
+          "Name": "simply",
+          "publicAccess": "container"
+        },
+        {
+          "Name": "rules",
+          "publicAccess": "none"
+        }
+      ]
     }
   },
   "functions": [],
@@ -46,7 +48,7 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2019-10-01",
-      "name": "sa",
+      "name": "sa-module",
       "resourceGroup": "[parameters('resourceGroupName')]",
       "properties": {
         "expressionEvaluationOptions": {
@@ -54,20 +56,11 @@
         },
         "mode": "Incremental",
         "parameters": {
-          "containerName": {
-            "value": "[parameters('containerName')]"
+          "location": {
+            "value": "[parameters('location')]"
           },
-          "storageAccountName": {
-            "value": "[parameters('storageAccountName')]"
-          },
-          "secretMetadata": {
-            "reference": {
-              "keyVault": {
-                "id": "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', parameters('keyVaultSubscription'), parameters('keyVaultResourceGroup')), 'Microsoft.KeyVault/vaults', parameters('keyVaultName'))]"
-              },
-              "secretName": "[parameters('secretName')]",
-              "secretVersion": "[parameters('secretVersion')]"
-            }
+          "namePrefix": {
+            "value": "[parameters('namePrefix')]"
           }
         },
         "template": {
@@ -76,8 +69,85 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.3.631.10959",
-              "templateHash": "12122545370089949113"
+              "version": "0.4.63.48766",
+              "templateHash": "17146187450258767516"
+            }
+          },
+          "parameters": {
+            "namePrefix": {
+              "type": "string",
+              "defaultValue": "stg"
+            },
+            "location": {
+              "type": "string",
+              "defaultValue": "westeurope"
+            }
+          },
+          "functions": [],
+          "variables": {
+            "storageAccountName": "[format('{0}{1}', parameters('namePrefix'), uniqueString(resourceGroup().id))]"
+          },
+          "resources": [
+            {
+              "type": "Microsoft.Storage/storageAccounts",
+              "apiVersion": "2021-02-01",
+              "name": "[variables('storageAccountName')]",
+              "location": "[parameters('location')]",
+              "kind": "StorageV2",
+              "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+              },
+              "properties": {
+                "accessTier": "Hot"
+              }
+            }
+          ],
+          "outputs": {
+            "stgout": {
+              "type": "string",
+              "value": "[variables('storageAccountName')]"
+            }
+          }
+        }
+      },
+      "dependsOn": [
+        "[subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('resourceGroupName'))]"
+      ]
+    },
+    {
+      "copy": {
+        "name": "co",
+        "count": "[length(parameters('blobContainers'))]"
+      },
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "[format('co-module-{0}', copyIndex())]",
+      "resourceGroup": "[parameters('resourceGroupName')]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "containerName": {
+            "value": "[parameters('blobContainers')[copyIndex()].Name]"
+          },
+          "containerIndex": {
+            "value": "[copyIndex()]"
+          },
+          "storageAccountName": {
+            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('resourceGroupName')), 'Microsoft.Resources/deployments', 'sa-module'), '2019-10-01').outputs.stgout.value]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.4.63.48766",
+              "templateHash": "16352661076533858287"
             }
           },
           "parameters": {
@@ -87,8 +157,8 @@
             "containerName": {
               "type": "string"
             },
-            "secretMetadata": {
-              "type": "secureString"
+            "containerIndex": {
+              "type": "int"
             }
           },
           "functions": [],
@@ -96,18 +166,14 @@
             {
               "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
               "apiVersion": "2019-06-01",
-              "name": "[format('{0}/default/{1}', parameters('storageAccountName'), parameters('containerName'))]",
-              "properties": {
-                "metadata": {
-                  "secret": "[parameters('secretMetadata')]"
-                }
-              }
+              "name": "[format('{0}/default/{1}{2}', parameters('storageAccountName'), parameters('containerIndex'), parameters('containerName'))]"
             }
           ]
         }
       },
       "dependsOn": [
-        "[subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('resourceGroupName'))]"
+        "[subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('resourceGroupName'))]",
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('resourceGroupName')), 'Microsoft.Resources/deployments', 'sa-module')]"
       ]
     }
   ]

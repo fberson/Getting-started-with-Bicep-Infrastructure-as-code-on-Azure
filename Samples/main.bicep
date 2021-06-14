@@ -1,35 +1,44 @@
 targetScope = 'subscription'
 
+param namePrefix string
+param location string
 param resourceGroupName string = 'my-rg'
-param storageAccountName string
-param containerName string
-param keyVaultName string
-param keyVaultSubscription string
-param keyVaultResourceGroup string
-param secretName string
-param secretVersion string
+
+param blobContainers array = [
+  {
+    Name: 'bicep'
+    publicAccess: 'blob'
+  }
+  {
+    Name: 'simply'
+    publicAccess: 'container'
+  }
+  {
+    Name: 'rules'
+    publicAccess: 'none'
+  }
+]
 
 resource rg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
   name: resourceGroupName
   location: 'westeurope'
 }
 
-resource sa 'Microsoft.Storage/storageAccounts@2021-02-01' existing = {
-  name: storageAccountName
+module sa 'storagaccount.bicep' = {
+  name: 'sa-module'
   scope: rg
-}
-
-resource kv 'Microsoft.KeyVault/vaults@2019-09-01' existing = {
-  name: keyVaultName
-  scope: resourceGroup(keyVaultSubscription, keyVaultResourceGroup)
-}
-
-module co 'container.bicep' = {
-  scope: rg
-  name: 'sa'
   params: {
-    containerName: containerName
-    storageAccountName: sa.name
-    secretMetadata: kv.getSecret(secretName, secretVersion)
+    location: location
+    namePrefix: namePrefix
   }
 }
+
+module co 'container.bicep' = [for (container, i) in blobContainers: {
+  name: 'co-module-${i}'
+  scope: rg
+  params: {
+    containerName: container.Name
+    containerIndex: i
+    storageAccountName: sa.outputs.stgout
+  }
+}]
