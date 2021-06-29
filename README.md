@@ -2,6 +2,7 @@
 This repository contains source codes and samples as provided in the book Getting started with Bicep - Infrastructure as code on Azure. This book is your guide to mastering Bicep! It contains a lot of practical solutions and examples to help you jump start your journey towards infrastructure as code for Azure!
 
 The Kindle version of the book is available for pre-order : <a href="https://www.amazon.com/dp/B0984MQY2N"> Getting started with Bicep: Infrastructure as code on Azure</a>
+Both a paperback and kindle version will become available on July 13!
 
 <img align="right" src="https://github.com/fberson/Getting-started-with-Bicep-Infrastructure-as-code-on-Azure/blob/main/cover.jpg" height=400>
 
