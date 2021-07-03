@@ -32,17 +32,17 @@ Part of this book is also the Bicep playground, visualizer and a PowerShell modu
 DevOps engineers, Developers, consultants, and Azure architects with or without experience in ARM Templates and infrastructure as code.
 
 ## Table of Contents
-- 1	Why this book
-2	What is project bicep
-3	Getting started
-4	Bicep file structure explained
-5	Deploying bicep files to azure
-6	Bicep syntax
-7	Bicep playground and example code
-8	Bicep visualizer
-9	Template Specs
-10	Guest Chapter: Bicep PowerShell module
-11	A real-world example
-12	Alternatives to Bicep
-13	Closing Notes
-14	About the author
+1.	Why this book
+2.	What is project bicep
+3.	Getting started
+4.	Bicep file structure explained
+5.	Deploying bicep files to azure
+6.	Bicep syntax
+7.	Bicep playground and example code
+8.	Bicep visualizer
+9.	Template Specs
+10.	 Guest Chapter: Bicep PowerShell module
+11.	 A real-world example
+12.	 Alternatives to Bicep
+13.	 Closing Notes
+14.	 About the author
