@@ -29,7 +29,7 @@ Part of this book is also the Bicep playground, visualizer and a PowerShell modu
 -	Use the Bicep PowerShell module as an extension to the Bicep CLI
 
 ## Who this book is intended for
-DevOps engineers, Developers, consultants, and Azure architects with or without experience in ARM Templates and infrastructure as code.
+DevOps engineers, Developers, consultants, and Azure architects with or without experience in ARM Templates and infrastructure as code who want to get started with Bicep.
 
 ## Table of Contents
 1.	Why this book
