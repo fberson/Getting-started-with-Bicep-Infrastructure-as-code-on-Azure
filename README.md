@@ -18,12 +18,15 @@ The book also contains a dedicated chapter on a big real-world example which pro
 Part of this book is also the Bicep playground, visualizer and a PowerShell module for Bicep provided by the community. Sample code used in this book is available on a dedicated GitHub repository.
 
 ## What you will learn
-- How to get started with the Bicep CLI and VSCode Extension
-- Deploying Bicep files to Azure, including template specs
-- Understanding the Bicep file structure
-- How to use the basic concepts of variables, parameters, tags, decorators, expressions, and symbolic names
-- Getting familiar with more advanced topics like dependencies, loops, conditions, target scopes, modules, and nesting
-- Leveraging the latest features like snippets, scaffolding, and linter
+-	Get started with the Bicep CLI and VSCode Extension
+-	Deploy Bicep Templates to Azure
+-	Understand the Bicep Template structure 
+-	Use variables, parameters, tags, decorators, expressions, and symbolic names with Bicep
+-	Use more advanced code options like dependencies, loops, conditions, target scopes, modules, and nesting
+-	Leverage the latest Bicep features like snippets, scaffolding, and linter
+-	Use the Bicep Visualizer and Bicep playground to support the authoring of Templates
+-	Deploy Templates using Template Specs
+-	Use the Bicep PowerShell module as an extension to the Bicep CLI
 
 ## Who this book is intended for
 DevOps engineers, Developers, consultants, and Azure architects with or without experience in ARM Templates and infrastructure as code.
