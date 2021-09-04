@@ -4,8 +4,8 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.4.63.48766",
-      "templateHash": "7471137598004575033"
+      "version": "0.4.675.35994",
+      "templateHash": "4904531352665711499"
     }
   },
   "parameters": {
@@ -69,8 +69,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.4.63.48766",
-              "templateHash": "17146187450258767516"
+              "version": "0.4.675.35994",
+              "templateHash": "5442983153218637006"
             }
           },
           "parameters": {
@@ -95,8 +95,7 @@
               "location": "[parameters('location')]",
               "kind": "StorageV2",
               "sku": {
-                "name": "Standard_LRS",
-                "tier": "Standard"
+                "name": "Standard_LRS"
               },
               "properties": {
                 "accessTier": "Hot"
@@ -104,7 +103,7 @@
             }
           ],
           "outputs": {
-            "stgout": {
+            "stg": {
               "type": "string",
               "value": "[variables('storageAccountName')]"
             }
@@ -137,7 +136,7 @@
             "value": "[copyIndex()]"
           },
           "storageAccountName": {
-            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('resourceGroupName')), 'Microsoft.Resources/deployments', 'sa-module'), '2019-10-01').outputs.stgout.value]"
+            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('resourceGroupName')), 'Microsoft.Resources/deployments', 'sa-module'), '2019-10-01').outputs.stg.value]"
           }
         },
         "template": {
@@ -146,8 +145,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.4.63.48766",
-              "templateHash": "16352661076533858287"
+              "version": "0.4.675.35994",
+              "templateHash": "1059430776622184152"
             }
           },
           "parameters": {
@@ -176,5 +175,11 @@
         "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('resourceGroupName')), 'Microsoft.Resources/deployments', 'sa-module')]"
       ]
     }
-  ]
+  ],
+  "outputs": {
+    "saout": {
+      "type": "string",
+      "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('resourceGroupName')), 'Microsoft.Resources/deployments', 'sa-module'), '2019-10-01').outputs.stg.value]"
+    }
+  }
 }
