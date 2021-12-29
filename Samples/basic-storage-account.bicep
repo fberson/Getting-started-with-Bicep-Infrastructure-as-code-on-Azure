@@ -1,3 +1,4 @@
+@description('This resource is a storage account deployed in West Europe.')
 resource stg 'Microsoft.Storage/storageAccounts@2021-02-01' = {
   name: 'mysabicepdemo'
   location: 'westeurope'
@@ -9,3 +10,4 @@ resource stg 'Microsoft.Storage/storageAccounts@2021-02-01' = {
     accessTier: 'Hot'
   }
 }
+

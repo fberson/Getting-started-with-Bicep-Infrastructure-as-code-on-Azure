@@ -34,7 +34,7 @@ module sa 'storageAccount.bicep' = {
   }
 }
 
-module co 'container.bicep' = [for (container, i) in blobContainers: {
+module co_acr 'br/CoreModules:storage:v1'  = [for (container, i) in blobContainers: {
   name: 'co-module-${i}'
   scope: rg
   params: {

@@ -1,29 +1,64 @@
 {
-    "analyzers": {
-      "core": {
-        "verbose": true,
-        "enabled": true,
-        "rules": {
-          "no-hardcoded-env-urls": {
-            "level": "warning"
-          },
-          "no-unused-params": {
-            "level": "error"
-          },
-          "no-unused-vars": {
-            "level": "warning"
-          },
-          "prefer-interpolation": {
-            "level": "warning"
-          },
-          "secure-parameter-default": {
-            "level": "warning"
-          },
-          "simplify-interpolation": {
-            "level": "warning"
-          }
+  "analyzers": {
+    "core": {
+      "enabled": true,
+      "verbose": false,
+      "rules": {
+        "adminusername-should-not-be-literal": {
+          "level": "warning"
+        },
+        "no-hardcoded-env-urls": {
+          "level": "warning"
+        },
+        "no-unnecessary-dependson": {
+          "level": "warning"
+        },
+        "no-unused-params": {
+          "level": "warning"
+        },
+        "no-unused-vars": {
+          "level": "warning"
+        },
+        "outputs-should-not-contain-secrets": {
+          "level": "warning"
+        },
+        "prefer-interpolation": {
+          "level": "warning"
+        },
+        "secure-parameter-default": {
+          "level": "warning"
+        },
+        "simplify-interpolation": {
+          "level": "warning"
+        },
+        "use-protectedsettings-for-commandtoexecute-secrets": {
+          "level": "warning"
+        },
+        "use-stable-vm-image": {
+          "level": "warning"
         }
       }
     }
+  },
+  "moduleAliases": {
+    "br": {
+      "CoreModules": {
+        "registry": "acriywdzdqmmr2ke.azurecr.io",
+        "modulePath": "bicep/modules"
+      }
+    },
+    "ts": {
+      "CoreSpecs": {
+        "subscription": "66869840-a086-41d1-84e9-cf66ac8a9a94",
+        "resourceGroup": "my-rg"
+      }
+    }
+  },
+  "cloud": {
+    "currentProfile": "AzureCloud",
+    "credentialPrecedence": [
+      "AzurePowerShell",
+      "AzureCLI"
+    ]
   }
-  
+}

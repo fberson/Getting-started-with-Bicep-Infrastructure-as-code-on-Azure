@@ -1,0 +1,6 @@
+{
+    "companyResourcePrefix": "berson",
+    "productionResourcePrefix": "p",
+    "testResourcePrefix": "t",
+    "globalPostFix": "001"
+}
