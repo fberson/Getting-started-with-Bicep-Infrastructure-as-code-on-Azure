@@ -1,0 +1,42 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.4.1272.37030",
+      "templateHash": "15267933244495709989"
+    }
+  },
+  "parameters": {
+    "logAnalyticsWorkspaceName": {
+      "type": "string"
+    },
+    "logAnalyticslocation": {
+      "type": "string",
+      "defaultValue": "westeurope"
+    },
+    "logAnalyticsWorkspaceSku": {
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.OperationalInsights/workspaces",
+      "apiVersion": "2020-08-01",
+      "name": "[parameters('logAnalyticsWorkspaceName')]",
+      "location": "[parameters('logAnalyticslocation')]",
+      "properties": {
+        "sku": {
+          "name": "[parameters('logAnalyticsWorkspaceSku')]"
+        }
+      }
+    }
+  ],
+  "outputs": {
+    "logAnalyticsWorkspaceID": {
+      "type": "string",
+      "value": "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('logAnalyticsWorkspaceName'))]"
+    }
+  }
+}
